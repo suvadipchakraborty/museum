@@ -94,15 +94,18 @@ const providers = {
     const dg = vis.digitally_shown_by && vis.digitally_shown_by[0]; if (!dg) return null;
     const dig = dg.access_point ? dg : await ld(dg);
     const m = JSON.stringify(dig.access_point || '').match(/iiif\.micr\.io\/([A-Za-z0-9]+)/); if (!m) return null;
-    const names = (obj.identified_by || []).filter(x => x.type === 'Name' && x.content);
-    const notes = (obj.referred_to_by || []).map(x => x.content).filter(Boolean).sort((a, b) => b.length - a.length);
+    const isEn = x => /300388277|English/i.test(JSON.stringify(x.language || ''));   // AAT 300388277 = English
+    const allNames = (obj.identified_by || []).filter(x => x.type === 'Name' && x.content);
+    const names = allNames.filter(isEn).concat(allNames);
+    const notes = (obj.referred_to_by || []).filter(x => x.content && isEn(x)).map(x => x.content).sort((a, b) => b.length - a.length);
+    const objNo = ((obj.identified_by || []).find(x => x.type === 'Identifier' && /^[A-Z]{2,}-/.test(x.content || '')) || {}).content;
     const pb = obj.produced_by || {}, maker = (pb.carried_out_by || [])[0] || (pb.part && pb.part[0] && (pb.part[0].carried_out_by || [])[0]);
     const ts = pb.timespan && pb.timespan.identified_by && pb.timespan.identified_by[0];
     return {
       imageUrl: `https://iiif.micr.io/${m[1]}/full/1400,/0/default.jpg`,
       title: names[0] && names[0].content, artist: maker && (maker._label || maker.label), date: ts && ts.content,
       museum: 'Rijksmuseum', description: notes[0],
-      permalink: obj.id || 'https://www.rijksmuseum.nl/en/collection'
+      permalink: objNo ? 'https://www.rijksmuseum.nl/en/collection/' + objNo : (obj.id || 'https://www.rijksmuseum.nl/en/collection')
     };
   }
 };
