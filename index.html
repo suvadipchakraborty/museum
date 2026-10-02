@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Daily Artifact</title>
+<meta name="description" content="A random masterpiece from the world's great museums, every time you look.">
+<meta name="theme-color" content="#121214">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Daily Artifact">
+<meta property="og:description" content="Discover a random artwork from the V&A, The Met, Art Institute of Chicago, Smithsonian and Rijksmuseum.">
+<meta property="og:url" content="https://museum.suvadipchakraborty.workers.dev/">
+<meta property="og:image" content="https://museum.suvadipchakraborty.workers.dev/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Daily Artifact">
+<meta name="twitter:description" content="Discover a random artwork from the V&A, The Met, Art Institute of Chicago, Smithsonian and Rijksmuseum.">
+<meta name="twitter:image" content="https://museum.suvadipchakraborty.workers.dev/preview.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>The Daily Artifact</h1>
+  <div class="toggle" id="toggle" role="tablist" aria-label="Collection filter">
+    <span class="pill" id="pill"></span>
+    <button role="tab" data-mode="global" class="on" aria-selected="true">🌍 Global</button>
+    <button role="tab" data-mode="india" aria-selected="false">🇮🇳 India Only</button>
+  </div>
+</header>
+
+<main>
+  <div class="stage" id="stage">
+    <div class="skeleton" id="skeleton"></div>
+    <img id="art" alt="" hidden>
+  </div>
+  <p class="status" id="status" aria-live="polite">Searching the archives…</p>
+  <article class="card" id="card" hidden>
+    <span class="badge" id="museum"></span>
+    <h2 id="title"></h2>
+    <p class="meta"><span id="artist"></span> · <span id="date"></span></p>
+    <p class="desc" id="desc"></p>
+    <a id="link" target="_blank" rel="noopener">View at museum ↗</a>
+  </article>
+</main>
+
+<nav class="bar">
+  <button id="share" class="ghost" aria-label="Share">Share</button>
+  <button id="next" class="fab">Discover Next</button>
+  <button id="install" class="ghost" hidden>Install App</button>
+</nav>
+
+<footer>
+  <span>Built by Suva</span>
+  <a href="mailto:suvadipchakraborty@gmail.com?subject=The%20Daily%20Artifact%20Feedback" aria-label="Send feedback" title="Feedback">✉ Feedback</a>
+</footer>
+
+<div class="lb" id="lb" hidden><img id="lbimg" alt=""><button id="lbclose" aria-label="Close">✕</button></div>
+<script src="app.js"></script>
+</body>
+</html>
